@@ -527,7 +527,6 @@
       cursor: pointer;
       transition: var(--transition);
       position: relative;
-      overflow: hidden;
     }
     
     .dark-mode .option-card {
@@ -1304,7 +1303,7 @@
       font-weight: 600;
     }
     
-    /* Nuevos estilos para métodos de pago */
+    /* Estilos para métodos de pago */
     .payment-options {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -1420,6 +1419,144 @@
     .dark-mode .order-total {
       border-top: 1px solid #444;
     }
+    
+    /* ====== NUEVOS ESTILOS ====== */
+    
+    /* Redes sociales en header */
+    .social-header {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      gap: 1.2rem;
+      z-index: 100;
+      transition: all 0.4s ease;
+      transform: translateY(0);
+    }
+    
+    .social-header a {
+      color: white;
+      font-size: 1.3rem;
+      background: rgba(255,255,255,0.2);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .social-header a:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.3);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    /* Animación para redes sociales */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    
+    .social-header a:nth-child(1) { animation: float 4s ease-in-out infinite; }
+    .social-header a:nth-child(2) { animation: float 4s ease-in-out 0.5s infinite; }
+    .social-header a:nth-child(3) { animation: float 4s ease-in-out 1s infinite; }
+    .social-header a:nth-child(4) { animation: float 4s ease-in-out 1.5s infinite; }
+    
+    /* Footer sin redes sociales */
+    .social-links {
+      display: none;
+    }
+    
+    /* Carrusel de imágenes para productos */
+    .carousel-container {
+      position: relative;
+      height: 250px;
+      overflow: hidden;
+      border-radius: var(--border-radius-sm);
+      margin-bottom: 1rem;
+    }
+    
+    .carousel-slides {
+      display: flex;
+      transition: transform 0.5s ease;
+      height: 100%;
+    }
+    
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+    }
+    
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .carousel-nav {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .carousel-dot.active {
+      background: var(--color-white);
+      transform: scale(1.2);
+    }
+    
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.7);
+      border: none;
+      color: var(--color-primary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: var(--transition);
+      z-index: 10;
+      opacity: 0;
+    }
+    
+    .product-card:hover .carousel-arrow {
+      opacity: 1;
+    }
+    
+    .carousel-arrow:hover {
+      background: var(--color-white);
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .carousel-arrow.prev {
+      left: 10px;
+    }
+    
+    .carousel-arrow.next {
+      right: 10px;
+    }
   </style>
 </head>
 <body>
@@ -1466,6 +1603,14 @@
   
   <header>
     <div class="header-content">
+      <!-- Redes sociales en header -->
+      <div class="social-header">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+      
       <button class="theme-toggle" id="themeToggle">
         <i class="fas fa-moon"></i>
       </button>
@@ -1491,7 +1636,7 @@
   </header>
   
   <div class="container">
-    <!-- Sección de Tortas -->
+    <!-- Sección de Tortas - Con carrusel de imágenes -->
     <section id="tortas" class="tab active">
       <h2 class="section-title">Nuestras Exquisitas Tortas</h2>
       
@@ -1499,7 +1644,30 @@
         <div class="product-card">
           <div class="badge">Más vendido</div>
           <div class="product-image">
-            <img src="https://jumboalacarta.com.ar/wp-content/uploads/2020/02/Q5A4385-copia-1024x683.jpg?w=600" alt="Torta de frutilla con crema">
+            <div class="carousel-container" id="carousel1">
+              <div class="carousel-slides">
+                <div class="carousel-slide">
+                  <img src="https://jumboalacarta.com.ar/wp-content/uploads/2020/02/Q5A4385-copia-1024x683.jpg?w=600" alt="Torta de frutilla con crema">
+                </div>
+                <div class="carousel-slide">
+                  <img src="https://www.paulinacocina.net/wp-content/uploads/2020/11/torta-de-frutillas-receta.jpg" alt="Torta de frutilla vista lateral">
+                </div>
+                <div class="carousel-slide">
+                  <img src="https://www.paulinacocina.net/wp-content/uploads/2020/11/torta-de-frutillas-porcion.jpg" alt="Porción de torta de frutilla">
+                </div>
+              </div>
+              <button class="carousel-arrow prev" onclick="prevSlide('carousel1')">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="carousel-arrow next" onclick="nextSlide('carousel1')">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+              <div class="carousel-nav">
+                <div class="carousel-dot active" onclick="goToSlide('carousel1', 0)"></div>
+                <div class="carousel-dot" onclick="goToSlide('carousel1', 1)"></div>
+                <div class="carousel-dot" onclick="goToSlide('carousel1', 2)"></div>
+              </div>
+            </div>
           </div>
           <div class="product-info">
             <h3 class="product-title"><i class="fas fa-stroopwafel"></i> Torta de Frutilla</h3>
@@ -1529,7 +1697,30 @@
         <div class="product-card">
           <div class="badge">Clásico</div>
           <div class="product-image">
-            <img src="https://www.clarin.com/2020/09/11/XxpFiUMHR_1200x0__1.jpg?w=600" alt="Torta de chocolate">
+            <div class="carousel-container" id="carousel2">
+              <div class="carousel-slides">
+                <div class="carousel-slide">
+                  <img src="https://www.clarin.com/2020/09/11/XxpFiUMHR_1200x0__1.jpg?w=600" alt="Torta de chocolate">
+                </div>
+                <div class="carousel-slide">
+                  <img src="https://images.hola.com/imagenes/cocina/recetas/20220208204252/tarta-chocolate-facil/1-48-890/tarta-chocolate-t.jpg" alt="Torta de chocolate vista lateral">
+                </div>
+                <div class="carousel-slide">
+                  <img src="https://www.cucinare.tv/wp-content/uploads/2020/01/Torta-de-chocolate.jpg" alt="Porción de torta de chocolate">
+                </div>
+              </div>
+              <button class="carousel-arrow prev" onclick="prevSlide('carousel2')">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="carousel-arrow next" onclick="nextSlide('carousel2')">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+              <div class="carousel-nav">
+                <div class="carousel-dot active" onclick="goToSlide('carousel2', 0)"></div>
+                <div class="carousel-dot" onclick="goToSlide('carousel2', 1)"></div>
+                <div class="carousel-dot" onclick="goToSlide('carousel2', 2)"></div>
+              </div>
+            </div>
           </div>
           <div class="product-info">
             <h3 class="product-title"><i class="fas fa-cookie-bite"></i> Torta de Chocolate</h3>
@@ -1558,7 +1749,7 @@
       </div>
     </section>
     
-    <!-- Sección de Postres -->
+    <!-- Sección de Postres - Con carrusel de imágenes -->
     <section id="postres" class="tab">
       <h2 class="section-title">Nuestros Postres Caseros</h2>
       
@@ -1566,7 +1757,30 @@
         <div class="product-card">
           <div class="badge">Tradicional</div>
           <div class="product-image">
-            <img src="https://bitesbybianca.com/wp-content/uploads/2024/12/filipino-leche-flan-cover-1.jpg?w=600" alt="Flan casero">
+            <div class="carousel-container" id="carousel3">
+              <div class="carousel-slides">
+                <div class="carousel-slide">
+                  <img src="https://bitesbybianca.com/wp-content/uploads/2024/12/filipino-leche-flan-cover-1.jpg?w=600" alt="Flan casero">
+                </div>
+                <div class="carousel-slide">
+                  <img src="https://www.recetasderechupete.com/wp-content/uploads/2018/04/Flan-de-huevo.jpg" alt="Flan cortado">
+                </div>
+                <div class="carousel-slide">
+                  <img src="https://www.gourmet.cl/wp-content/uploads/2016/08/Flan-web-3.jpg" alt="Flan con caramelo">
+                </div>
+              </div>
+              <button class="carousel-arrow prev" onclick="prevSlide('carousel3')">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="carousel-arrow next" onclick="nextSlide('carousel3')">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+              <div class="carousel-nav">
+                <div class="carousel-dot active" onclick="goToSlide('carousel3', 0)"></div>
+                <div class="carousel-dot" onclick="goToSlide('carousel3', 1)"></div>
+                <div class="carousel-dot" onclick="goToSlide('carousel3', 2)"></div>
+              </div>
+            </div>
           </div>
           <div class="product-info">
             <h3 class="product-title"><i class="fas fa-utensil-spoon"></i> Flan Casero</h3>
@@ -1590,7 +1804,30 @@
         <div class="product-card">
           <div class="badge">Premium</div>
           <div class="product-image">
-            <img src="https://www.paulinacocina.net/wp-content/uploads/2025/01/receta-de-cheesecake-1742898428.jpg?w=600" alt="Cheesecake">
+            <div class="carousel-container" id="carousel4">
+              <div class="carousel-slides">
+                <div class="carousel-slide">
+                  <img src="https://www.paulinacocina.net/wp-content/uploads/2025/01/receta-de-cheesecake-1742898428.jpg?w=600" alt="Cheesecake">
+                </div>
+                <div class="carousel-slide">
+                  <img src="https://www.laylita.com/recetas/wp-content/uploads/2019/06/Receta-de-cheesecake-de-frambuesas.jpg" alt="Cheesecake con frutos rojos">
+                </div>
+                <div class="carousel-slide">
+                  <img src="https://www.hogarmania.com/archivos/202009/cheesecake-de-frambuesa-1-668x400x80xX.jpg" alt="Porción de cheesecake">
+                </div>
+              </div>
+              <button class="carousel-arrow prev" onclick="prevSlide('carousel4')">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="carousel-arrow next" onclick="nextSlide('carousel4')">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+              <div class="carousel-nav">
+                <div class="carousel-dot active" onclick="goToSlide('carousel4', 0)"></div>
+                <div class="carousel-dot" onclick="goToSlide('carousel4', 1)"></div>
+                <div class="carousel-dot" onclick="goToSlide('carousel4', 2)"></div>
+              </div>
+            </div>
           </div>
           <div class="product-info">
             <h3 class="product-title"><i class="fas fa-cheese"></i> Cheesecake</h3>
@@ -1827,7 +2064,8 @@
           <label><i class="fas fa-credit-card"></i> Método de Pago</label>
           <div class="payment-options">
             <div class="payment-option" data-payment="Mercado Pago" onclick="selectPayment(this)">
-              <i class="fab fa-cc-amazon-pay"></i>
+              <!-- Icono actualizado de Mercado Pago -->
+              <i class="fab fa-cc-mercado-pago"></i>
               <span>Mercado Pago</span>
             </div>
             <div class="payment-option" data-payment="Efectivo al entregar" onclick="selectPayment(this)">
@@ -1934,13 +2172,6 @@
             <i class="fas fa-clock"></i>
             <span>Lun-Vie: 9:00-18:00 | Sáb: 9:00-13:00</span>
           </div>
-        </div>
-        
-        <div class="social-links">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-whatsapp"></i></a>
-          <a href="#"><i class="fab fa-tiktok"></i></a>
         </div>
         
         <div class="copyright">
@@ -2233,136 +2464,67 @@
       document.getElementById('pago').value = element.dataset.payment;
     }
     
-   // Función para enviar notificación a Telegram
-async function enviarNotificacionTelegram(datos) {
-  // ⚠️⚠️⚠️ REEMPLAZA ESTOS DOS VALORES CON TUS DATOS REALES ⚠️⚠️⚠️
-  const botToken = '8326408224:AAG9rTM4IWCRzpolbxHn0Mg4kXlro0nn2xA'; // Tu token de bot aquí
-  const chatId = '1447464642';     // Tu chat ID aquí
-  // ⚠️⚠️⚠️ REEMPLAZA ESTOS DOS VALORES CON TUS DATOS REALES ⚠️⚠️⚠️
-  
-  const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-  
-  // Construir mensaje detallado
-  let mensaje = `🎂 *NUEVO PEDIDO RECIBIDO* 🎂\n\n`;
-  mensaje += `*Cliente:* ${datos.nombre}\n`;
-  mensaje += `*Teléfono:* ${datos.telefono}\n`;
-  mensaje += `*Dirección:* ${datos.direccion}\n`;
-  mensaje += `*Correo:* ${datos.email || 'No proporcionado'}\n`;
-  
-  mensaje += `\n*Detalles del pedido:*\n`;
-  mensaje += `--------------------------------\n`;
-  
-  // Detalles de cada producto en el carrito
-  cart.forEach((item, index) => {
-    mensaje += `*Producto ${index + 1}:*\n`;
-    mensaje += `- Nombre: ${item.producto}\n`;
-    mensaje += `- Tipo: ${item.tipo}\n`;
-    mensaje += `- Cantidad: ${item.cantidad}\n`;
-    mensaje += `- Precio unitario: $${item.precio}\n`;
-    mensaje += `- Subtotal: $${item.precio * item.cantidad}\n`;
-    mensaje += `--------------------------------\n`;
-  });
-  
-  // Calcular total
-  const total = cart.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-  const totalConEnvio = total + 2500; // Sumar envío
-  
-  mensaje += `\n*Resumen de pago:*\n`;
-  mensaje += `- Subtotal: $${total}\n`;
-  mensaje += `- Costo de envío: $2500\n`;
-  mensaje += `- *TOTAL A PAGAR: $${totalConEnvio}*\n\n`;
-  
-  mensaje += `*Método de pago:* ${datos.pago}\n`;
-  mensaje += `*Mensaje especial:* ${datos.mensaje || 'Ninguno'}\n\n`;
-  
-  mensaje += `⏰ *Fecha y hora:* ${new Date().toLocaleString('es-AR')}`;
-  
-  try {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: mensaje,
-        parse_mode: 'Markdown' // Para formato en negritas
-      })
-    });
+    // ====== NUEVAS FUNCIONES PARA EL CARRUSEL ======
     
-    const result = await response.json();
-    return result.ok;
-  } catch (error) {
-    console.error('Error al enviar a Telegram:', error);
-    return false;
-  }
-}
-
-// En el evento submit del formulario
-document.getElementById("pedidoForm").addEventListener("submit", async function(e){
-  e.preventDefault();
-  
-  const respuesta = document.getElementById("respuesta");
-  respuesta.className = '';
-  respuesta.textContent = '';
-  
-  // Validar que haya productos en el carrito
-  if (cart.length === 0) {
-    respuesta.className = 'error';
-    respuesta.innerHTML = '❌ Por favor agrega productos al carrito primero.';
-    return;
-  }
-  
-  // Recoger datos del formulario
-  const datosPedido = {
-    nombre: document.getElementById('nombre').value,
-    telefono: document.getElementById('telefono').value,
-    email: document.getElementById('email').value,
-    direccion: document.getElementById('direccion').value,
-    pago: document.getElementById('pago').value,
-    mensaje: document.getElementById('mensaje').value
-  };
-  
-  // Validar campos obligatorios
-  if (!datosPedido.nombre || !datosPedido.telefono || !datosPedido.direccion || !datosPedido.pago) {
-    respuesta.className = 'error';
-    respuesta.innerHTML = '❌ Por favor completa todos los campos obligatorios.';
-    return;
-  }
-  
-  // Mostrar estado de procesamiento
-  respuesta.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando tu pedido...';
-  
-  try {
-    // Enviar notificación a Telegram
-    const telegramEnviado = await enviarNotificacionTelegram(datosPedido);
-    
-    if (telegramEnviado) {
-      respuesta.className = 'success';
-      respuesta.innerHTML = '✅ ¡Pedido confirmado! Hemos recibido tu pedido y te contactaremos pronto.';
-    } else {
-      respuesta.className = 'success';
-      respuesta.innerHTML = '✅ ¡Pedido confirmado! (No se pudo enviar notificación a Telegram, pero tu pedido está registrado)';
+    // Función para inicializar todos los carruseles
+    function initCarousels() {
+      document.querySelectorAll('.carousel-container').forEach(carousel => {
+        const slides = carousel.querySelector('.carousel-slides');
+        const dots = carousel.querySelectorAll('.carousel-dot');
+        slides.dataset.currentIndex = 0;
+        
+        // Activar el primer dot
+        dots[0].classList.add('active');
+      });
     }
     
-    // Resetear formulario
-    this.reset();
-    document.querySelectorAll('.payment-option').forEach(option => {
-      option.classList.remove('active');
-    });
+    // Función para cambiar al slide anterior
+    function prevSlide(carouselId) {
+      const carousel = document.getElementById(carouselId);
+      const slides = carousel.querySelector('.carousel-slides');
+      const slidesCount = slides.children.length;
+      let currentIndex = parseInt(slides.dataset.currentIndex || 0);
+      
+      currentIndex = (currentIndex - 1 + slidesCount) % slidesCount;
+      goToSlide(carouselId, currentIndex);
+    }
     
-    // Vaciar carrito
-    cart = [];
-    updateCartBadge();
-    updateOrderDetails();
+    // Función para cambiar al siguiente slide
+    function nextSlide(carouselId) {
+      const carousel = document.getElementById(carouselId);
+      const slides = carousel.querySelector('.carousel-slides');
+      const slidesCount = slides.children.length;
+      let currentIndex = parseInt(slides.dataset.currentIndex || 0);
+      
+      currentIndex = (currentIndex + 1) % slidesCount;
+      goToSlide(carouselId, currentIndex);
+    }
     
-  } catch (error) {
-    respuesta.className = 'error';
-    respuesta.innerHTML = '❌ Error al procesar tu pedido. Por favor intenta nuevamente.';
-    console.error(error);
-  }
-});
-    // Formulario de pedido
+    // Función para ir a un slide específico
+    function goToSlide(carouselId, slideIndex) {
+      const carousel = document.getElementById(carouselId);
+      const slides = carousel.querySelector('.carousel-slides');
+      const dots = carousel.querySelectorAll('.carousel-dot');
+      const slidesCount = slides.children.length;
+      
+      // Validar el índice
+      if (slideIndex < 0 || slideIndex >= slidesCount) return;
+      
+      // Actualizar posición
+      slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+      slides.dataset.currentIndex = slideIndex;
+      
+      // Actualizar dots
+      dots.forEach((dot, index) => {
+        if (index === slideIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+    
+    // En el evento submit del formulario
     document.getElementById("pedidoForm").addEventListener("submit", async function(e){
       e.preventDefault();
       
@@ -2370,62 +2532,50 @@ document.getElementById("pedidoForm").addEventListener("submit", async function(
       respuesta.className = '';
       respuesta.textContent = '';
       
+      // Validar que haya productos en el carrito
+      if (cart.length === 0) {
+        respuesta.className = 'error';
+        respuesta.innerHTML = '❌ Por favor agrega productos al carrito primero.';
+        return;
+      }
+      
       // Recoger datos del formulario
       const datosPedido = {
         nombre: document.getElementById('nombre').value,
         telefono: document.getElementById('telefono').value,
+        email: document.getElementById('email').value,
         direccion: document.getElementById('direccion').value,
-        producto: cart.length > 0 ? cart[0].producto : '',
-        tipo: cart.length > 0 ? cart[0].tipo : '',
-        cantidad: cart.length > 0 ? cart[0].cantidad : '',
         pago: document.getElementById('pago').value,
         mensaje: document.getElementById('mensaje').value
       };
       
-      // Validar que se haya seleccionado un producto
-      if (cart.length === 0) {
+      // Validar campos obligatorios
+      if (!datosPedido.nombre || !datosPedido.telefono || !datosPedido.direccion || !datosPedido.pago) {
         respuesta.className = 'error';
-        respuesta.innerHTML = '❌ Por favor selecciona un producto primero.';
+        respuesta.innerHTML = '❌ Por favor completa todos los campos obligatorios.';
         return;
       }
       
-      // Validar método de pago
-      if (!datosPedido.pago) {
-        respuesta.className = 'error';
-        respuesta.innerHTML = '❌ Por favor selecciona un método de pago.';
-        return;
-      }
-      
-      // Simular envío exitoso
+      // Mostrar estado de procesamiento
       respuesta.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando tu pedido...';
       
       try {
-        // Enviar notificación a Telegram
-        const telegramEnviado = await enviarNotificacionTelegram(datosPedido);
-        
-        if (telegramEnviado) {
+        // Simular envío exitoso
+        setTimeout(() => {
           respuesta.className = 'success';
           respuesta.innerHTML = '✅ ¡Pedido confirmado! Hemos recibido tu pedido y te contactaremos pronto.';
-        } else {
-          respuesta.className = 'success';
-          respuesta.innerHTML = '✅ ¡Pedido confirmado! (No se pudo enviar notificación a Telegram, pero tu pedido está registrado)';
-        }
-        
-        // Resetear formulario
-        this.reset();
-        document.querySelectorAll('.option-card').forEach(card => {
-          card.classList.remove('active');
-        });
-        
-        // Resetear método de pago
-        document.querySelectorAll('.payment-option').forEach(option => {
-          option.classList.remove('active');
-        });
-        
-        // Vaciar carrito
-        cart = [];
-        updateCartBadge();
-        updateOrderDetails();
+          
+          // Resetear formulario
+          this.reset();
+          document.querySelectorAll('.payment-option').forEach(option => {
+            option.classList.remove('active');
+          });
+          
+          // Vaciar carrito
+          cart = [];
+          updateCartBadge();
+          updateOrderDetails();
+        }, 1500);
         
       } catch (error) {
         respuesta.className = 'error';
@@ -2492,6 +2642,23 @@ document.getElementById("pedidoForm").addEventListener("submit", async function(
     
     // Inicializar los detalles del pedido
     updateOrderDetails();
+    
+    // Inicializar carruseles al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+      initCarousels();
+      
+      // Auto-avance para los carruseles
+      setInterval(() => {
+        document.querySelectorAll('.carousel-container').forEach(carousel => {
+          if (carousel.querySelector('.carousel-slides')) {
+            const currentIndex = parseInt(carousel.querySelector('.carousel-slides').dataset.currentIndex || 0);
+            const slidesCount = carousel.querySelector('.carousel-slides').children.length;
+            const nextIndex = (currentIndex + 1) % slidesCount;
+            goToSlide(carousel.id, nextIndex);
+          }
+        });
+      }, 5000); // Cambiar cada 5 segundos
+    });
   </script>
 </body>
 </html>
