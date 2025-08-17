@@ -1420,9 +1420,7 @@
       border-top: 1px solid #444;
     }
     
-    /* ====== NUEVOS ESTILOS ====== */
-    
-    /* Redes sociales en header */
+    /* ====== REDES SOCIALES FIJAS ====== */
     .social-header {
       position: absolute;
       top: 20px;
@@ -1431,7 +1429,6 @@
       gap: 1.2rem;
       z-index: 100;
       transition: all 0.4s ease;
-      transform: translateY(0);
     }
     
     .social-header a {
@@ -1453,17 +1450,6 @@
       background: rgba(255,255,255,0.3);
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
-    
-    /* Animación para redes sociales */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-    
-    .social-header a:nth-child(1) { animation: float 4s ease-in-out infinite; }
-    .social-header a:nth-child(2) { animation: float 4s ease-in-out 0.5s infinite; }
-    .social-header a:nth-child(3) { animation: float 4s ease-in-out 1s infinite; }
-    .social-header a:nth-child(4) { animation: float 4s ease-in-out 1.5s infinite; }
     
     /* Footer sin redes sociales */
     .social-links {
@@ -1557,6 +1543,26 @@
     .carousel-arrow.next {
       right: 10px;
     }
+    
+    /* Ajustes para pantallas pequeñas */
+    @media (max-width: 480px) {
+      .social-header {
+        top: 15px;
+        left: 15px;
+        gap: 0.8rem;
+      }
+      
+      .social-header a {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+      }
+      
+      /* Asegurar que no interfiera con el título */
+      header h1 {
+        padding-top: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1603,7 +1609,7 @@
   
   <header>
     <div class="header-content">
-      <!-- Redes sociales en header -->
+      <!-- Redes sociales en header - Fijas sin animación constante -->
       <div class="social-header">
         <a href="#"><i class="fab fa-facebook-f"></i></a>
         <a href="#"><i class="fab fa-instagram"></i></a>
@@ -2065,7 +2071,7 @@
           <div class="payment-options">
             <div class="payment-option" data-payment="Mercado Pago" onclick="selectPayment(this)">
               <!-- Icono actualizado de Mercado Pago -->
-              <i class="fab fa-cc-mercado-pago"></i>
+              <i class="fas fa-wallet"></i>
               <span>Mercado Pago</span>
             </div>
             <div class="payment-option" data-payment="Efectivo al entregar" onclick="selectPayment(this)">
@@ -2560,8 +2566,11 @@
       respuesta.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando tu pedido...';
       
       try {
-        // Simular envío exitoso
-        setTimeout(() => {
+        // Crear mensaje para Telegram
+        const messageText = createOrderMessage(datosPedido);
+        const response = await sendToTelegram(messageText);
+        
+        if (response.ok) {
           respuesta.className = 'success';
           respuesta.innerHTML = '✅ ¡Pedido confirmado! Hemos recibido tu pedido y te contactaremos pronto.';
           
@@ -2575,14 +2584,48 @@
           cart = [];
           updateCartBadge();
           updateOrderDetails();
-        }, 1500);
-        
+        } else {
+          const errorData = await response.json();
+          throw new Error(errorData.description || 'Error al enviar el pedido a Telegram');
+        }
       } catch (error) {
         respuesta.className = 'error';
         respuesta.innerHTML = '❌ Error al procesar tu pedido. Por favor intenta nuevamente.';
         console.error(error);
       }
     });
+    
+    // Función para crear el mensaje de pedido
+    function createOrderMessage(orderData) {
+      let message = `🍰 *Nuevo Pedido!* 🍰\n`;
+      message += `📋 *Detalles del cliente:*\n`;
+      message += `• *Nombre:* ${orderData.nombre}\n`;
+      message += `• *Teléfono:* ${orderData.telefono}\n`;
+      message += `• *Email:* ${orderData.email || 'No proporcionado'}\n`;
+      message += `• *Dirección:* ${orderData.direccion}\n`;
+      message += `• *Método de Pago:* ${orderData.pago}\n`;
+      message += `• *Mensaje Especial:* ${orderData.mensaje || 'Ninguno'}\n\n`;
+      message += `🛒 *Productos:*\n`;
+      
+      cart.forEach(item => {
+         message += `- *${item.producto}* (${item.tipo}) x${item.cantidad}: $${item.precio * item.cantidad}\n`;
+      });
+      
+      const total = cart.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+      message += `\n💵 *Total: $${total}*`;
+      
+      return encodeURIComponent(message);
+    }
+    
+    // Función para enviar el mensaje a Telegram
+    async function sendToTelegram(message) {
+      // Reemplaza con tu token y chat ID
+      const token = '8326408224:AAG9rTM4IWCRzpolbxHn0Mg4kXlro0nn2xA';
+      const chatId = '1447464642';
+      const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}&parse_mode=Markdown`;
+      
+      return fetch(url);
+    }
     
     // Modo oscuro/claro
     const themeToggle = document.getElementById('themeToggle');
