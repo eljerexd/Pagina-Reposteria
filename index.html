@@ -617,7 +617,7 @@
       box-shadow: var(--shadow);
       padding: 2.5rem;
       margin: 3rem auto;
-      max-width: 600px;
+      max-width: 800px;
     }
     
     .order-header {
@@ -646,21 +646,25 @@
     }
     
     .form-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
     }
     
     .form-group label {
       display: block;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.8rem;
       font-weight: 500;
       color: var(--text-color);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     
     .form-group input, 
     .form-group select, 
     .form-group textarea {
       width: 100%;
-      padding: 1rem;
+      padding: 1.1rem;
       border-radius: var(--border-radius-sm);
       border: 1px solid #e0e0e0;
       font-size: 1rem;
@@ -1221,6 +1225,201 @@
     .dark-mode .map-placeholder {
       background: #333;
     }
+    
+    /* ====== MEJORAS PARA EL FORMULARIO DE PEDIDO ====== */
+    .order-details {
+      background: var(--color-light-2);
+      border-radius: var(--border-radius-sm);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .dark-mode .order-details {
+      background: #333;
+    }
+    
+    .order-details-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .dark-mode .order-details-header {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .order-details-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+    
+    .order-item {
+      display: flex;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    
+    .order-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .order-item-image {
+      width: 70px;
+      height: 70px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: var(--shadow);
+    }
+    
+    .order-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .order-item-details {
+      flex: 1;
+    }
+    
+    .order-item-name {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      font-size: 1.1rem;
+    }
+    
+    .order-item-info {
+      color: var(--color-gray);
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .order-item-price {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+    
+    /* Nuevos estilos para métodos de pago */
+    .payment-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .payment-option {
+      background: var(--color-light-2);
+      border: 2px solid #e0e0e0;
+      border-radius: var(--border-radius-sm);
+      padding: 1.2rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dark-mode .payment-option {
+      background: #333;
+      border-color: #555;
+    }
+    
+    .payment-option:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+      border-color: var(--color-primary-light);
+    }
+    
+    .payment-option.active {
+      border-color: var(--color-primary);
+      background: rgba(255,123,123,0.1);
+      box-shadow: var(--shadow);
+    }
+    
+    .dark-mode .payment-option.active {
+      background: rgba(255,123,123,0.2);
+    }
+    
+    .payment-option i {
+      font-size: 2.2rem;
+      margin-bottom: 0.8rem;
+      color: var(--color-primary);
+      transition: var(--transition);
+    }
+    
+    .payment-option.active i {
+      color: var(--color-primary);
+      transform: scale(1.1);
+    }
+    
+    .payment-option span {
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .payment-option::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,123,123,0.1), rgba(255,177,153,0.1));
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .payment-option.active::before {
+      opacity: 1;
+    }
+    
+    .payment-option::after {
+      content: '✓';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--color-primary);
+      color: white;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: var(--transition);
+    }
+    
+    .payment-option.active::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    
+    .dark-mode .order-total {
+      border-top: 1px solid #444;
+    }
   </style>
 </head>
 <body>
@@ -1321,7 +1520,7 @@
               <input type="number" id="cantidad-frutilla" min="1" value="1">
             </div>
             
-            <button class="submit-btn" onclick="addToCart('Torta de frutilla', 'entera', 4200, 1, 'https://jumboalacarta.com.ar/wp-content/uploads/2020/02/Q5A4385-copia-1024x683.jpg?w=600')">
+            <button class="submit-btn" onclick="addToCart('Torta de frutilla', 'https://jumboalacarta.com.ar/wp-content/uploads/2020/02/Q5A4385-copia-1024x683.jpg?w=600')">
               <i class="fas fa-shopping-cart"></i> Agregar al carrito
             </button>
           </div>
@@ -1351,7 +1550,7 @@
               <input type="number" id="cantidad-chocolate" min="1" value="1">
             </div>
             
-            <button class="submit-btn" onclick="addToCart('Torta de chocolate', 'entera', 4500, 1, 'https://www.clarin.com/2020/09/11/XxpFiUMHR_1200x0__1.jpg?w=600')">
+            <button class="submit-btn" onclick="addToCart('Torta de chocolate', 'https://www.clarin.com/2020/09/11/XxpFiUMHR_1200x0__1.jpg?w=600')">
               <i class="fas fa-shopping-cart"></i> Agregar al carrito
             </button>
           </div>
@@ -1382,7 +1581,7 @@
               <input type="number" id="cantidad-flan" min="1" value="1">
             </div>
             
-            <button class="submit-btn" onclick="addToCart('Flan casero', 'unidad', 1800, 1, 'https://bitesbybianca.com/wp-content/uploads/2024/12/filipino-leche-flan-cover-1.jpg?w=600')">
+            <button class="submit-btn" onclick="addToCart('Flan casero', 'https://bitesbybianca.com/wp-content/uploads/2024/12/filipino-leche-flan-cover-1.jpg?w=600')">
               <i class="fas fa-shopping-cart"></i> Agregar al carrito
             </button>
           </div>
@@ -1412,7 +1611,7 @@
               <input type="number" id="cantidad-cheesecake" min="1" value="1">
             </div>
             
-            <button class="submit-btn" onclick="addToCart('Cheesecake', 'entera', 3900, 1, 'https://www.paulinacocina.net/wp-content/uploads/2025/01/receta-de-cheesecake-1742898428.jpg?w=600')">
+            <button class="submit-btn" onclick="addToCart('Cheesecake', 'https://www.paulinacocina.net/wp-content/uploads/2025/01/receta-de-cheesecake-1742898428.jpg?w=600')">
               <i class="fas fa-shopping-cart"></i> Agregar al carrito
             </button>
           </div>
@@ -1575,16 +1774,13 @@
           </div>
         </div>
         
-        <div class="submit-btn" style="margin-top: 2rem;" onclick="addToCart('Torta Personalizada', 'entera', 5000, 1, 'https://jumboalacarta.com.ar/wp-content/uploads/2020/02/Q5A4385-copia-1024x683.jpg?w=600')">
+        <div class="submit-btn" style="margin-top: 2rem;" onclick="addToCart('Torta Personalizada', 'https://jumboalacarta.com.ar/wp-content/uploads/2020/02/Q5A4385-copia-1024x683.jpg?w=600')">
           <i class="fas fa-shopping-cart"></i> Agregar Torta Personalizada
         </div>
       </div>
     </section>
     
-    
-    
-    
-    <!-- Formulario de Pedido -->
+    <!-- Formulario de Pedido - MEJORADO -->
     <section class="order-section">
       <div class="order-header">
         <h2><i class="fas fa-shopping-bag"></i> Completa tu Pedido</h2>
@@ -1596,6 +1792,17 @@
       </div>
       
       <form id="pedidoForm">
+        <div class="order-details">
+          <div class="order-details-header">
+            <div class="order-details-title">Tu Pedido</div>
+            <div id="cart-total-display">Total: $0</div>
+          </div>
+          
+          <div id="order-items-container">
+            <div class="no-items">No hay productos en el carrito</div>
+          </div>
+        </div>
+        
         <div class="form-group">
           <label for="nombre"><i class="fas fa-user"></i> Nombre Completo</label>
           <input type="text" id="nombre" placeholder="Tu nombre" required>
@@ -1617,28 +1824,22 @@
         </div>
         
         <div class="form-group">
-          <label for="producto"><i class="fas fa-birthday-cake"></i> Producto Seleccionado</label>
-          <input type="text" id="producto" placeholder="Selecciona un producto" readonly required>
-        </div>
-        
-        <div class="form-group" id="tipo-producto-group">
-          <label for="tipo-producto"><i class="fas fa-utensils"></i> Tipo</label>
-          <input type="text" id="tipo-producto" placeholder="Tipo" readonly>
-        </div>
-        
-        <div class="form-group">
-          <label for="cantidad"><i class="fas fa-sort-amount-up"></i> Cantidad</label>
-          <input type="text" id="cantidad" placeholder="Cantidad" readonly>
-        </div>
-        
-        <div class="form-group">
-          <label for="pago"><i class="fas fa-credit-card"></i> Método de Pago</label>
-          <select id="pago" required>
-            <option value="">Seleccionar método</option>
-            <option>Mercado Pago</option>
-            <option>Efectivo al entregar</option>
-            <option>Transferencia bancaria</option>
-          </select>
+          <label><i class="fas fa-credit-card"></i> Método de Pago</label>
+          <div class="payment-options">
+            <div class="payment-option" data-payment="Mercado Pago" onclick="selectPayment(this)">
+              <i class="fab fa-cc-amazon-pay"></i>
+              <span>Mercado Pago</span>
+            </div>
+            <div class="payment-option" data-payment="Efectivo al entregar" onclick="selectPayment(this)">
+              <i class="fas fa-money-bill-wave"></i>
+              <span>Efectivo</span>
+            </div>
+            <div class="payment-option" data-payment="Transferencia bancaria" onclick="selectPayment(this)">
+              <i class="fas fa-university"></i>
+              <span>Transferencia</span>
+            </div>
+          </div>
+          <input type="hidden" id="pago" required>
         </div>
         
         <div class="form-group">
@@ -1653,6 +1854,7 @@
       
       <div id="respuesta"></div>
     </section>
+    
     <!-- Sección de Preguntas Frecuentes -->
     <section class="faq-section">
       <h2 class="section-title">Preguntas Frecuentes</h2>
@@ -1697,6 +1899,7 @@
         </div>
       </div>
     </section>
+    
     <!-- Mapa de ubicación -->
     <div class="map-container">
       <div class="map-placeholder">
@@ -1752,7 +1955,7 @@
     const precios = {
       'Torta de frutilla': { entera: 4200, porcion: 550 },
       'Torta de chocolate': { entera: 4500, porcion: 600 },
-      'Flan casero': { entera: 1800 },
+      'Flan casero': { unidad: 1800 },
       'Cheesecake': { entera: 3900, porcion: 500 },
       'Torta Personalizada': { entera: 5000 } // Precio base para tortas personalizadas
     };
@@ -1785,7 +1988,34 @@
     }
     
     // Agregar producto al carrito
-    function addToCart(producto, tipo, precio, cantidad, imagen) {
+    function addToCart(producto, imagen) {
+      // Obtener el contenedor del producto
+      const productCard = event.target.closest('.product-card');
+      
+      // Obtener el tipo seleccionado
+      let tipo = 'entera'; // valor por defecto
+      const tipoOption = productCard.querySelector('.tipo-option.active');
+      if (tipoOption) {
+        tipo = tipoOption.dataset.tipo;
+      }
+      
+      // Obtener la cantidad
+      let cantidad = 1;
+      const cantidadInput = productCard.querySelector('input[type="number"]');
+      if (cantidadInput) {
+        cantidad = parseInt(cantidadInput.value) || 1;
+      }
+      
+      // Obtener el precio según el tipo
+      let precio;
+      if (tipo === 'porcion' || tipo === 'porciones') {
+        precio = precios[producto].porcion;
+      } else if (tipo === 'unidad') {
+        precio = precios[producto].unidad;
+      } else {
+        precio = precios[producto][tipo] || precios[producto].entera;
+      }
+      
       // Agregar al carrito
       cart.push({
         id: Date.now(),
@@ -1799,8 +2029,11 @@
       // Actualizar badge del carrito
       updateCartBadge();
       
+      // Actualizar los detalles del pedido
+      updateOrderDetails();
+      
       // Mostrar mensaje
-      showCartNotification(`${producto} agregado al carrito`);
+      showCartNotification(`${producto} (${tipo}) agregado al carrito`);
     }
     
     // Mostrar notificación de carrito
@@ -1910,6 +2143,7 @@
       
       renderCartItems();
       updateCartBadge();
+      updateOrderDetails();
     }
     
     // Eliminar item del carrito
@@ -1917,6 +2151,7 @@
       cart = cart.filter(item => item.id !== id);
       renderCartItems();
       updateCartBadge();
+      updateOrderDetails();
     }
     
     // Finalizar compra
@@ -1925,12 +2160,6 @@
         showCartNotification('Tu carrito está vacío');
         return;
       }
-      
-      // Seleccionar el primer producto para el formulario
-      const firstItem = cart[0];
-      document.getElementById('producto').value = firstItem.producto;
-      document.getElementById('tipo-producto').value = firstItem.tipo;
-      document.getElementById('cantidad').value = firstItem.cantidad;
       
       closeCart();
       document.querySelector('.order-section').scrollIntoView({behavior: 'smooth'});
@@ -1960,46 +2189,179 @@
       element.classList.toggle('active');
     }
     
-    // Enviar notificación a Telegram
-    async function enviarNotificacionTelegram(datos) {
-      // ⚠️⚠️⚠️ REEMPLAZA ESTOS DOS VALORES ⚠️⚠️⚠️
-      const botToken = 'TU_BOT_TOKEN'; // Tu token de bot aquí
-      const chatId = 'TU_CHAT_ID';     // Tu chat ID aquí
-      // ⚠️⚠️⚠️ REEMPLAZA ESTOS DOS VALORES ⚠️⚠️⚠️
+    // Función para actualizar los detalles del pedido en el formulario
+    function updateOrderDetails() {
+      const container = document.getElementById('order-items-container');
+      const totalDisplay = document.getElementById('cart-total-display');
       
-      const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-      
-      // Formatear mensaje para Telegram
-      const mensaje = `NUEVO PEDIDO RECIBIDO 🎂\n\n` +
-                     `Cliente: ${datos.nombre}\n` +
-                     `Teléfono: ${datos.telefono}\n` +
-                     `Dirección: ${datos.direccion}\n` +
-                     `Producto: ${datos.producto}\n` +
-                     `Tipo: ${datos.tipo}\n` +
-                     `Cantidad: ${datos.cantidad}\n` +
-                     `Método de pago: ${datos.pago}\n` +
-                     `Mensaje: ${datos.mensaje || 'Sin mensaje adicional'}`;
-      
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: mensaje
-          })
-        });
-        
-        const result = await response.json();
-        return result.ok;
-      } catch (error) {
-        console.error('Error al enviar a Telegram:', error);
-        return false;
+      if (cart.length === 0) {
+        container.innerHTML = '<div class="no-items">No hay productos en el carrito</div>';
+        totalDisplay.textContent = 'Total: $0';
+        return;
       }
+      
+      let html = '';
+      let total = 0;
+      
+      cart.forEach(item => {
+        total += item.precio * item.cantidad;
+        
+        html += `
+          <div class="order-item">
+            <div class="order-item-image">
+              <img src="${item.imagen}" alt="${item.producto}">
+            </div>
+            <div class="order-item-details">
+              <div class="order-item-name">${item.producto}</div>
+              <div class="order-item-info">${item.tipo} | ${item.cantidad} ${item.cantidad > 1 ? 'unidades' : 'unidad'}</div>
+              <div class="order-item-price">$${item.precio * item.cantidad}</div>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+      totalDisplay.textContent = `Total: $${total}`;
     }
+    
+    // Función para seleccionar método de pago
+    function selectPayment(element) {
+      const paymentOptions = document.querySelectorAll('.payment-option');
+      paymentOptions.forEach(option => option.classList.remove('active'));
+      
+      element.classList.add('active');
+      document.getElementById('pago').value = element.dataset.payment;
+    }
+    
+   // Función para enviar notificación a Telegram
+async function enviarNotificacionTelegram(datos) {
+  // ⚠️⚠️⚠️ REEMPLAZA ESTOS DOS VALORES CON TUS DATOS REALES ⚠️⚠️⚠️
+  const botToken = '8326408224:AAG9rTM4IWCRzpolbxHn0Mg4kXlro0nn2xA'; // Tu token de bot aquí
+  const chatId = '1447464642';     // Tu chat ID aquí
+  // ⚠️⚠️⚠️ REEMPLAZA ESTOS DOS VALORES CON TUS DATOS REALES ⚠️⚠️⚠️
+  
+  const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+  
+  // Construir mensaje detallado
+  let mensaje = `🎂 *NUEVO PEDIDO RECIBIDO* 🎂\n\n`;
+  mensaje += `*Cliente:* ${datos.nombre}\n`;
+  mensaje += `*Teléfono:* ${datos.telefono}\n`;
+  mensaje += `*Dirección:* ${datos.direccion}\n`;
+  mensaje += `*Correo:* ${datos.email || 'No proporcionado'}\n`;
+  
+  mensaje += `\n*Detalles del pedido:*\n`;
+  mensaje += `--------------------------------\n`;
+  
+  // Detalles de cada producto en el carrito
+  cart.forEach((item, index) => {
+    mensaje += `*Producto ${index + 1}:*\n`;
+    mensaje += `- Nombre: ${item.producto}\n`;
+    mensaje += `- Tipo: ${item.tipo}\n`;
+    mensaje += `- Cantidad: ${item.cantidad}\n`;
+    mensaje += `- Precio unitario: $${item.precio}\n`;
+    mensaje += `- Subtotal: $${item.precio * item.cantidad}\n`;
+    mensaje += `--------------------------------\n`;
+  });
+  
+  // Calcular total
+  const total = cart.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+  const totalConEnvio = total + 2500; // Sumar envío
+  
+  mensaje += `\n*Resumen de pago:*\n`;
+  mensaje += `- Subtotal: $${total}\n`;
+  mensaje += `- Costo de envío: $2500\n`;
+  mensaje += `- *TOTAL A PAGAR: $${totalConEnvio}*\n\n`;
+  
+  mensaje += `*Método de pago:* ${datos.pago}\n`;
+  mensaje += `*Mensaje especial:* ${datos.mensaje || 'Ninguno'}\n\n`;
+  
+  mensaje += `⏰ *Fecha y hora:* ${new Date().toLocaleString('es-AR')}`;
+  
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: mensaje,
+        parse_mode: 'Markdown' // Para formato en negritas
+      })
+    });
+    
+    const result = await response.json();
+    return result.ok;
+  } catch (error) {
+    console.error('Error al enviar a Telegram:', error);
+    return false;
+  }
+}
 
+// En el evento submit del formulario
+document.getElementById("pedidoForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+  
+  const respuesta = document.getElementById("respuesta");
+  respuesta.className = '';
+  respuesta.textContent = '';
+  
+  // Validar que haya productos en el carrito
+  if (cart.length === 0) {
+    respuesta.className = 'error';
+    respuesta.innerHTML = '❌ Por favor agrega productos al carrito primero.';
+    return;
+  }
+  
+  // Recoger datos del formulario
+  const datosPedido = {
+    nombre: document.getElementById('nombre').value,
+    telefono: document.getElementById('telefono').value,
+    email: document.getElementById('email').value,
+    direccion: document.getElementById('direccion').value,
+    pago: document.getElementById('pago').value,
+    mensaje: document.getElementById('mensaje').value
+  };
+  
+  // Validar campos obligatorios
+  if (!datosPedido.nombre || !datosPedido.telefono || !datosPedido.direccion || !datosPedido.pago) {
+    respuesta.className = 'error';
+    respuesta.innerHTML = '❌ Por favor completa todos los campos obligatorios.';
+    return;
+  }
+  
+  // Mostrar estado de procesamiento
+  respuesta.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando tu pedido...';
+  
+  try {
+    // Enviar notificación a Telegram
+    const telegramEnviado = await enviarNotificacionTelegram(datosPedido);
+    
+    if (telegramEnviado) {
+      respuesta.className = 'success';
+      respuesta.innerHTML = '✅ ¡Pedido confirmado! Hemos recibido tu pedido y te contactaremos pronto.';
+    } else {
+      respuesta.className = 'success';
+      respuesta.innerHTML = '✅ ¡Pedido confirmado! (No se pudo enviar notificación a Telegram, pero tu pedido está registrado)';
+    }
+    
+    // Resetear formulario
+    this.reset();
+    document.querySelectorAll('.payment-option').forEach(option => {
+      option.classList.remove('active');
+    });
+    
+    // Vaciar carrito
+    cart = [];
+    updateCartBadge();
+    updateOrderDetails();
+    
+  } catch (error) {
+    respuesta.className = 'error';
+    respuesta.innerHTML = '❌ Error al procesar tu pedido. Por favor intenta nuevamente.';
+    console.error(error);
+  }
+});
     // Formulario de pedido
     document.getElementById("pedidoForm").addEventListener("submit", async function(e){
       e.preventDefault();
@@ -2013,17 +2375,24 @@
         nombre: document.getElementById('nombre').value,
         telefono: document.getElementById('telefono').value,
         direccion: document.getElementById('direccion').value,
-        producto: document.getElementById('producto').value,
-        tipo: document.getElementById('tipo-producto').value,
-        cantidad: document.getElementById('cantidad').value,
+        producto: cart.length > 0 ? cart[0].producto : '',
+        tipo: cart.length > 0 ? cart[0].tipo : '',
+        cantidad: cart.length > 0 ? cart[0].cantidad : '',
         pago: document.getElementById('pago').value,
         mensaje: document.getElementById('mensaje').value
       };
       
       // Validar que se haya seleccionado un producto
-      if (!datosPedido.producto) {
+      if (cart.length === 0) {
         respuesta.className = 'error';
         respuesta.innerHTML = '❌ Por favor selecciona un producto primero.';
+        return;
+      }
+      
+      // Validar método de pago
+      if (!datosPedido.pago) {
+        respuesta.className = 'error';
+        respuesta.innerHTML = '❌ Por favor selecciona un método de pago.';
         return;
       }
       
@@ -2048,15 +2417,15 @@
           card.classList.remove('active');
         });
         
-        // Resetear producto seleccionado
-        document.getElementById('producto').value = '';
-        document.getElementById('tipo-producto').value = '';
-        document.getElementById('cantidad').value = '';
-        pedidoActual = { producto: '', tipo: '', cantidad: 1, esPersonalizado: false };
+        // Resetear método de pago
+        document.querySelectorAll('.payment-option').forEach(option => {
+          option.classList.remove('active');
+        });
         
         // Vaciar carrito
         cart = [];
         updateCartBadge();
+        updateOrderDetails();
         
       } catch (error) {
         respuesta.className = 'error';
@@ -2120,6 +2489,9 @@
     const styleSheet = document.createElement('style');
     styleSheet.textContent = fadeIn + fadeOut;
     document.head.appendChild(styleSheet);
+    
+    // Inicializar los detalles del pedido
+    updateOrderDetails();
   </script>
 </body>
 </html>
